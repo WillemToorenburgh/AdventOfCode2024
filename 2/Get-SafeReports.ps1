@@ -9,8 +9,8 @@ $ExampleDataString = @'
 1 3 6 7 9
 '@
 
-$DataString = $ExampleDataString
-# $DataString = Get-Content $PSScriptRoot\input1.txt
+# $DataString = $ExampleDataString
+$DataString = Get-Content $PSScriptRoot\input1.txt
 
 # For each line ("report"), ensure both are true:
 # * From left to right, values all increase or decrease
@@ -60,7 +60,7 @@ Function Apply-Tolerance {
 
     For ($Index = 0; $Index -lt $Report.Count; $Index++) {
         # To work around Powershell's base array being read-only, and to hopefully avoid passing by reference
-        $TempReport = $Report -As [List[Int]]
+        [List[Int]]$TempReport = $Report + @()
         $TempReport.RemoveAt($Index)
 
         $IsSafe = Get-SafeReports -Report $TempReport
